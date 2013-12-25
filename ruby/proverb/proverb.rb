@@ -1,19 +1,22 @@
 require 'pry'
 class Proverb
 
-  attr_reader :args
+  attr_reader :args,
+              :qualifier
 
   def initialize(*args)
-    @args = *args
+    has_qualifier = args.last.is_a?(Hash)
+    @args = has_qualifier ? args[0..-2] : args
+    @qualifier = has_qualifier ? args.pop[:qualifier] : ""
   end
 
   def to_s
-    #args.map{|arg| phrase(arg, arg)}.join("\n")
-    song = args.each_with_index.map do |arg, i|
-      phrase(arg, args[i+1])
-    end.join("\n")
-    song << "\n"
-    song << "And all for the want of a #{args[0]}"
+    song = []
+    args.each_with_index do |_, i|
+      song << phrase(args[i], args[i+1]) unless i == args.length - 1
+    end
+    song << "And all for the want of a #{qualifier != "" ? qualifier + " " : qualifier}#{args[0]}."
+    song = song.join("\n")
     return song
   end
 
