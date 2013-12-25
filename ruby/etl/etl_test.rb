@@ -11,7 +11,6 @@ class TransformTest < MiniTest::Unit::TestCase
   end
 
   def test_transform_more_values
-    skip
     old = { 1 => ['WORLD', 'GSCHOOLERS'] }
     expected = { 'world' => 1, 'gschoolers' => 1 }
 
@@ -19,7 +18,6 @@ class TransformTest < MiniTest::Unit::TestCase
   end
 
   def test_more_keys
-    skip
     old = { 1 => ['APPLE', 'ARTICHOKE'], 2 => ['BOAT', 'BALLERINA'] }
     expected = {
       'apple' => 1,
@@ -32,7 +30,6 @@ class TransformTest < MiniTest::Unit::TestCase
   end
 
   def test_full_dataset
-    skip
     old = {
       1 => %W(A E I O U L N R S T),
       2 => %W(D G),
