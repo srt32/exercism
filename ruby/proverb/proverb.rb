@@ -1,4 +1,3 @@
-require 'pry'
 class Proverb
 
   attr_reader :args,
@@ -12,12 +11,11 @@ class Proverb
 
   def to_s
     song = []
-    args.each_with_index do |_, i|
+    args.each_with_index.map do |_, i|
       song << phrase(args[i], args[i+1]) unless i == args.length - 1
     end
     song << "And all for the want of a #{qualifier != "" ? qualifier + " " : qualifier}#{args[0]}."
     song = song.join("\n")
-    return song
   end
 
   def phrase(first, second)

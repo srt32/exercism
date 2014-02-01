@@ -5,14 +5,11 @@
 (declare question?)
 
 (defn response-for [phrase]
-  (if (silent? phrase)
-    "Fine. Be that way!"
-  (if (yelling? phrase)
-  "Woah, chill out!"
-  (if (question? phrase)
-    "Sure."
-    "Whatever."
-   )))
+  (cond
+    (silent? phrase)   "Fine. Be that way!"
+    (yelling? phrase)  "Woah, chill out!"
+    (question? phrase) "Sure."
+    :else "Whatever.")
 )
 
 (defn- silent? [phrase]
