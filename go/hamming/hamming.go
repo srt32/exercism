@@ -1,15 +1,10 @@
 package hamming
 
-func Distance(strandA string, strandB string) int {
-	distance := 0
-	shorter := strandB
-	if len(strandA) < len(strandB) {
-		shorter = strandA
-	}
-	for i := range shorter {
+func Distance(strandA string, strandB string) (distance int) {
+	for i := 0; i < len(strandA) && i < len(strandB); i++ {
 		if strandA[i] != strandB[i] {
 			distance++
 		}
 	}
-	return distance
+	return
 }
