@@ -1,7 +1,7 @@
 class Raindrops
 
   def convert(number)
-    result = droplet_noises.select { |_, v| v.call(number) }.keys.join
+    result = droplet_noises.select { |_, verifier| verifier.call(number) }.keys.join
     result = number.to_s if result.empty?
     result
   end

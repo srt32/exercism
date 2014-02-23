@@ -1,7 +1,7 @@
 class Grains
 
   def square(position)
-    2**(position-1)
+    1 << (position-1)
   end
 
   def total
