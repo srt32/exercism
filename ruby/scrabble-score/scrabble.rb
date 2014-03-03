@@ -1,13 +1,13 @@
 class Scrabble
+  attr_reader :letters, :scorer
 
-  attr_reader :letters
-
-  def initialize(word)
-    @letters = word ? clean_word_into_letters(word) : NullLetters.new
+  def initialize(word, scorer = Score)
+    @letters = to_letters(word)
+    @scorer = scorer
   end
 
   def score
-    letters.inject(0) { |score, letter| score += scores[letter] }
+    scorer.compute(letters)
   end
 
   def self.score(word)
@@ -16,11 +16,21 @@ class Scrabble
 
   private
 
-  def clean_word_into_letters(word)
-    word.downcase.gsub(/[^a-z]/, '').split('')
+  def to_letters(word)
+    word.to_s.downcase.gsub(/[^a-z]/, '').split('')
   end
 
-  def scores
+end
+
+class Score
+
+  def self.compute(letters)
+    letters.inject(0) { |score, letter| score += scores[letter] }
+  end
+
+  private
+
+  def self.scores
     {
       "a" => 1,
       "b" => 3,
@@ -49,14 +59,6 @@ class Scrabble
       "y" => 4,
       "z" => 10
     }
-  end
-
-end
-
-class NullLetters
-
-  def inject(_)
-    0
   end
 
 end
