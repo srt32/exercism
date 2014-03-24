@@ -1,5 +1,6 @@
 class Bob
 
-  hey = ->
+  hey: ->
+    'Whatever.'
 
 module.exports = Bob
