@@ -7,10 +7,13 @@ class Anagram
     matches = []
     for word in words
       word = word.toLowerCase()
-      unless word == @targetWord
-        sortedWord = word.toLowerCase().split('').sort().join('')
-        if @targetWord.split('').sort().join('') == sortedWord
-          matches.push(word)
+      matches.push(word) if @isAnagram(@targetWord, word)
     matches
+
+  isAnagram: (firstWord, secondWord) ->
+    secondWord != @targetWord && @sort(firstWord) == @sort(secondWord)
+
+  sort: (word) ->
+    word.toLowerCase().split('').sort().join('')
 
 module.exports = Anagram
