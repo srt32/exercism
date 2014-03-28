@@ -1,22 +1,22 @@
 class Bob
 
   hey: (phrase) ->
-    if @.isSilence(phrase)
+    if @isSilence(phrase)
       'Fine. Be that way!'
-    else if @.isOrder(phrase)
+    else if @isOrder(phrase)
       'Woah, chill out!'
-    else if @.isQuestion(phrase)
+    else if @isQuestion(phrase)
       'Sure.'
     else
       'Whatever.'
 
   isQuestion: (phrase) ->
-    phrase.slice(-1) == '?'
+    phrase.slice(-1) is '?'
 
   isOrder: (phrase) ->
-    phrase.toUpperCase() == phrase
+    phrase.toUpperCase() is phrase
 
   isSilence: (phrase) ->
-    !phrase || phrase.trim().length == 0
+    !phrase or phrase.trim().length is 0
 
 module.exports = Bob
