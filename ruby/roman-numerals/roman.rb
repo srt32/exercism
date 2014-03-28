@@ -1,15 +1,13 @@
 class Fixnum
 
   def to_roman
-    result = ""
     remainder = self
-    digits.each do |dec, char|
-      while remainder >= dec
-        result << char
-        remainder -= dec
+    digits.each_with_object("") do |digit, result|
+      while remainder >= digit[0]
+        remainder -= digit[0]
+        result << digit[1]
       end
     end
-    result
   end
 
   private
