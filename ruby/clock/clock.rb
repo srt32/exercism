@@ -11,7 +11,7 @@ class ClockTime
   attr_reader :hours, :minutes
 
   def initialize(hour, minute)
-    @hours, @minutes = extract_hours(hour, minute)
+    @hours, @minutes = extract_times(hour, minute)
   end
 
   def to_s
@@ -22,20 +22,20 @@ class ClockTime
     ClockTime.new(hours, minutes + additional_minutes)
   end
 
-  def -(additional_minutes)
-    ClockTime.new(hours, minutes - additional_minutes)
+  def -(reduced_minutes)
+    ClockTime.new(hours, minutes - reduced_minutes)
   end
 
   def ==(other)
-    hours == other.hours && minutes == other.minutes
+    (hours + minutes) == (other.hours + other.minutes)
   end
 
   private
 
-  def extract_hours(hour, minute)
-    extra_hours, remaining_minutes = minute.divmod(60)
+  def extract_times(hour, minute)
+    extra_hours, new_minutes = minute.divmod(60)
     new_hours = (hour + extra_hours) % 24
-    [new_hours, remaining_minutes]
+    [new_hours, new_minutes]
   end
 
 end
