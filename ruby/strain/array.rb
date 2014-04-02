@@ -9,11 +9,7 @@ class Array
   end
 
   def discard(&block)
-    self.map do |element|
-      unless yield element
-        element
-      end
-    end.compact
+    self - self.keep(&block)
   end
 
 end
