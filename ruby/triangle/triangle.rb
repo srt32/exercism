@@ -1,39 +1,29 @@
 class Triangle
 
-  attr_reader :a, :b, :c
+  attr_reader :sides
 
   def initialize(a, b, c)
-    @a = a
-    @b = b
-    @c = c
+    @sides = [a, b, c].sort
     raise TriangleError if invalid_triangle?
   end
 
   def kind
-    types.find { |type, definition| definition }.first
+    types[sides.uniq.count - 1]
   end
 
   private
 
   def types
-    {
-      :equilateral => all_sides_equal?,
-      :isosceles => two_sides_equal?,
-      :scalene => true
-    }
-  end
-
-  def all_sides_equal?
-    a == b && a == c && b == c
-  end
-
-  def two_sides_equal?
-    a == b || a == c || b == c
+    [
+      :equilateral,
+      :isosceles,
+      :scalene
+    ]
   end
 
   def invalid_triangle?
-    [a, b, c].any? { |size| size <= 0 }
-    a + b <= c || a + c <= b || b + c <= a
+    sides.any? { |size| size <= 0 }
+    sides[0] <= 0 || sides[0] + sides[1] <= sides[2]
   end
 
 end
