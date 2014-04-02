@@ -8,21 +8,20 @@ class Triangle
   end
 
   def kind
-    types[sides.uniq.count - 1]
+    [:equilateral, :isosceles, :scalene][sides.uniq.count - 1]
   end
 
   private
 
-  def types
-    [
-      :equilateral,
-      :isosceles,
-      :scalene
-    ]
+  def invalid_triangle?
+    short_sides? || not_equivalent?
   end
 
-  def invalid_triangle?
+  def short_sides?
     sides.any? { |size| size <= 0 }
+  end
+
+  def not_equivalent?
     sides[0] <= 0 || sides[0] + sides[1] <= sides[2]
   end
 
