@@ -22,7 +22,7 @@ class Triangle
   end
 
   def not_equivalent?
-    sides[0] <= 0 || sides[0] + sides[1] <= sides[2]
+    sides[0] + sides[1] <= sides[2]
   end
 
 end
