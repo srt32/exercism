@@ -2,27 +2,29 @@ package raindrops
 
 import (
   "strconv"
-  "unicode/utf8"
 )
 
 func Convert(n int) string {
-  values := map[int]string{
+  primes := map[int]string{
     3: "Pling",
     5: "Plang",
     7: "Plong",
   }
 
-  result := ""
+  result := createResult(n, primes)
 
-  for k, v := range values {
-    if n%k == 0 {
-      result = result + v
-    }
-  }
-
-  if utf8.RuneCountInString(result) == 0 {
+  if result == "" {
     return strconv.Itoa(n)
   } else {
     return result
   }
+}
+
+func createResult(n int, primes map[int]string) (result string) {
+  for prime, saying := range primes {
+    if n%prime == 0 {
+      result += saying
+    }
+  }
+  return result
 }
