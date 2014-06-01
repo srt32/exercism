@@ -50,9 +50,7 @@ func allergenForCode(i int) string {
 }
 
 func AllergicTo(i int, allergen string) bool {
-  allergies := Allergies(i)
-
-  for _, allergy := range allergies {
+  for _, allergy := range Allergies(i) {
     if allergy == allergen {
       return true
     }
