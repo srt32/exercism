@@ -1,0 +1,3 @@
+package clock
+
+func New(){}
