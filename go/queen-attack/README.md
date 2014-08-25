@@ -11,14 +11,15 @@ So if you're told the white queen is at (2, 3) and the black queen at (5, 6),
 then you'd know you've got a set-up like so:
 
 ```plain
-O O O O O O O O
-O O O O O O O O
-O O O W O O O O
-O O O O O O O O
-O O O O O O O O
-O O O O O O B O
-O O O O O O O O
-O O O O O O O O
+8  O O O O O O O O
+7  O O O O O O O O
+6  O O O W O O O O
+5  O O O O O O O O
+4  O O O O O O O O
+3  O O O O O O B O
+2  O O O O O O O O
+0  O O O O O O O O
+   a b c d e f g h
 ```
 
 You'd also be able to answer whether the queens can attack each other.
