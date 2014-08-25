@@ -15,23 +15,33 @@ func CanQueenAttack(w string, b string) (attack bool, err error) {
 		return false, errors.New("Out of bounds")
 	} else if black.outOfBounds() {
 		return false, errors.New("Out of bounds")
+	//} else if sameFile(white, black) {
+	// create file function and then use it for same file check
+
 	} else {
 		// b4, b7, handle same file
 	  return false, nil
 	}
 };
 
+//func sameFile(w, b position) {
+//	if
+//}
+
 type position struct {
 	Location string
 }
 
-func (p position) outOfBounds() bool {
-	location := p.Location
-	rank, err := strconv.ParseInt(string(location[1]), 0, 32)
+func (p position) rank() int64 {
+	rank, err := strconv.ParseInt(string(p.Location[1]), 0, 32)
 	if err != nil {
-		return true
+		return 9 // hacky
 	}
-	if rank > 8 {
+	return rank
+}
+
+func (p position) outOfBounds() bool {
+	if p.rank() > 8 {
 	  return true
 	} else {
 		return false
