@@ -2,6 +2,7 @@ package queenattack
 
 import (
 	"errors"
+	"math"
 	"strconv"
 )
 
@@ -30,9 +31,9 @@ func CanQueenAttack(w string, b string) (attack bool, err error) {
 };
 
 func areDiagonal(w, b position) bool {
-	fileDelta := b.FileNumber() - w.FileNumber()
-	rankDelta := b.Rank() - w.Rank()
-	if (fileDelta == rankDelta) {
+	fileDelta := float64(b.FileNumber() - w.FileNumber())
+	rankDelta := float64(b.Rank() - w.Rank())
+	if (math.Abs(fileDelta) == math.Abs(rankDelta)) {
 		return true
 	} else {
 		return false
