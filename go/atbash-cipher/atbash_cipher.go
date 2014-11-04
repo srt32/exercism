@@ -5,8 +5,14 @@ import (
 )
 
 func Atbash(str string) string {
+	encodedMessage := encodeMessage(str)
+	groupedEncodedMessage := addGroupings(encodedMessage)
+
+	return string(groupedEncodedMessage)
+}
+
+func encodeMessage(str string) []rune {
 	var encodedMessage []rune
-	var groupedEncodedMessage []rune
 
 	for _, r := range str {
 		normalizedR := unicode.ToLower(r)
@@ -18,15 +24,21 @@ func Atbash(str string) string {
 		}
 	}
 
-	for i, r := range encodedMessage {
+	return encodedMessage
+}
+
+func addGroupings(m []rune) []rune {
+	var groupedEncodedMessage []rune
+
+	for i, r := range m {
 		groupedEncodedMessage = append(groupedEncodedMessage, r)
 
-		if (i+1)%5 == 0 && (i != len(encodedMessage)-1) {
+		if (i+1)%5 == 0 && (i != len(m)-1) {
 			groupedEncodedMessage = append(groupedEncodedMessage, ' ')
 		}
 	}
 
-	return string(groupedEncodedMessage)
+	return groupedEncodedMessage
 }
 
 func encodeRune(r rune) rune {
