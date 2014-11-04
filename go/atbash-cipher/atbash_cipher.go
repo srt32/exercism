@@ -6,32 +6,36 @@ import (
 
 func Atbash(str string) string {
 	var encodedMessage []rune
+	var groupedEncodedMessage []rune
 
 	for _, r := range str {
 		normalizedR := unicode.ToLower(r)
-		var count int
 
 		encodedR := encodeRune(normalizedR)
 
 		if encodedR != ' ' {
-			count += 1
-			if count == 5 {
-				encodedMessage = append(encodedMessage, ' ')
-				count = 0
-			}
-
 			encodedMessage = append(encodedMessage, encodedR)
 		}
 	}
 
-	return string(encodedMessage)
+	for i, r := range encodedMessage {
+		groupedEncodedMessage = append(groupedEncodedMessage, r)
+
+		if (i+1)%5 == 0 && (i != len(encodedMessage)-1) {
+			groupedEncodedMessage = append(groupedEncodedMessage, ' ')
+		}
+	}
+
+	return string(groupedEncodedMessage)
 }
 
 func encodeRune(r rune) rune {
 	switch {
 	case 'a' <= r && r <= 'z':
 		return 25 - r + 97 + 97
-	default:
+	case 48 <= r && r <= 57:
 		return r
+	default:
+		return ' '
 	}
 }
