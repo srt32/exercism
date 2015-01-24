@@ -1,6 +1,8 @@
 package clock
 
 import (
+	"fmt"
+	"math"
 	"strconv"
 )
 
@@ -14,35 +16,41 @@ type clock struct {
 }
 
 func (c clock) String() string {
-	minutes := strconv.FormatInt(int64(c.m), 10)
-	hours := strconv.FormatInt(int64(c.h), 10)
-
-	if c.m == 0 {
-		minutes += "0"
-	} else if c.m < 10 {
-		minutes = "0" + minutes
-	}
+	var hour = strconv.Itoa(c.h)
+	var minute = strconv.Itoa(int(math.Abs(float64(c.m))))
 
 	if c.h < 10 {
-		hours = "0" + hours
+		hour = "0" + hour
 	}
 
-	display := hours + ":" + minutes
+	if c.m < 10 && c.m > -1 {
+		minute = "0" + minute
+	}
 
-	return display
+	return hour + ":" + minute
 }
 
-func (c clock) Add(a int) clock {
-	hours := c.h
-	minutes := c.m
-	newMinutes := c.m + a
+func (c clock) Add(duration int) clock {
+	var newHour = c.h
+	var newMinute = c.m
 
-	if newMinutes > 59 {
-		hours += 1
-		minutes -= 60
-	} else {
-		minutes = newMinutes
+	var numHours = duration / 60
+	newHour = newHour + numHours
+
+	newMinute = c.m + (duration - 60*numHours)
+
+	fmt.Println(newMinute)
+
+	if newMinute > 59 {
+		newMinute = newMinute - 60
 	}
 
-	return clock{hours, minutes}
+	if newMinute < 0 {
+		newHour -= 1
+	}
+
+	if newHour > 23 {
+		newHour = c.h - 24
+	}
+	return clock{newHour, newMinute}
 }
