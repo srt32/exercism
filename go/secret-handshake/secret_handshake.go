@@ -2,25 +2,33 @@ package secret
 
 import (
   "fmt"
+  "math"
   "strconv"
 )
 
 func Handshake(code int) []string {
-  int64Code := int64(123)
-  binaryCode := strconv.FormatInt(int64Code, 2)
+  binaryCode := strconv.FormatInt(int64(code), 2)
 
-  codes := map[int][]string{
-    1: []string{"wink"},
-    2: []string{"double blink"},
-    4: []string{"close your eyes"},
-    8: []string{"jump"},
+  codes := map[int]string{
+    1: "wink",
+    2: "double blink",
+    4: "close your eyes",
+    8: "jump",
   }
 
-  //for 
+  fmt.Println("binaryCode is: ", binaryCode)
+
+  result := []string{}
+
+  for i, _ := range binaryCode {
+    index := int(binaryCode[len(binaryCode)-i-1] - '0')
+
+    if (index > 0) {
+      newCode := codes[int(math.Pow(2, float64(len(binaryCode)-i-1)))]
+      result = append(result, newCode)
+    }  
+  }
   // loop over reverse of binaryCode and match each char to the codes map
 
-  fmt.Println(codes[1])
-  fmt.Println(binaryCode)
-
-  return []string{"wink"}
+  return result
 }
