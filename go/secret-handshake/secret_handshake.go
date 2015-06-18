@@ -21,14 +21,28 @@ func Handshake(code int) []string {
   result := []string{}
 
   for i, _ := range binaryCode {
-    index := int(binaryCode[len(binaryCode)-i-1] - '0')
+    position := len(binaryCode)-i-1
+    bit := int(binaryCode[position] - '0')
 
-    if (index > 0) {
-      newCode := codes[int(math.Pow(2, float64(len(binaryCode)-i-1)))]
-      result = append(result, newCode)
-    }  
+    if (bit > 0) {
+      seekIndex := int(math.Pow(2, float64(i)))
+      newCode := codes[seekIndex]
+      if (newCode != "") {
+        result = append(result, newCode)
+      }
+    }   
   }
-  // loop over reverse of binaryCode and match each char to the codes map
+
+  fmt.Println("result before any reversing: ", result)
+
+  if (len(binaryCode) == 5) {
+      newResult := []string{}
+      backwardsResult := result
+      for i, _ := range result {
+        newResult = append(newResult, backwardsResult[len(backwardsResult) - i - 1])
+      }
+      result = newResult
+    }
 
   return result
 }
