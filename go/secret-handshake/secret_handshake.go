@@ -1,12 +1,15 @@
 package secret
 
 import (
-  "fmt"
   "math"
   "strconv"
 )
 
 func Handshake(code int) []string {
+  if (code < 0 || code > 31) {
+    return []string{}
+  }
+
   binaryCode := strconv.FormatInt(int64(code), 2)
 
   codes := map[int]string{
@@ -15,8 +18,6 @@ func Handshake(code int) []string {
     4: "close your eyes",
     8: "jump",
   }
-
-  fmt.Println("binaryCode is: ", binaryCode)
 
   result := []string{}
 
@@ -32,8 +33,6 @@ func Handshake(code int) []string {
       }
     }   
   }
-
-  fmt.Println("result before any reversing: ", result)
 
   if (len(binaryCode) == 5) {
       newResult := []string{}
